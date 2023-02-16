@@ -17,17 +17,29 @@ const VideoCall = () => {
       });
   }, []);
 
-  const startCall = () => {
-    const peerConnection = new RTCPeerConnection();
-    setPeerConnection(peerConnection);
-
-    peerConnection.addStream(localStream);
-
-    peerConnection.createOffer().then((description) => {
-      peerConnection.setLocalDescription(description);
-
-      // send the offer to a server to be forwarded to the other peer
-    });
+  const startCall = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      setLocalStream(stream);
+  
+      const peerConnection = new RTCPeerConnection();
+      setPeerConnection(peerConnection);
+  
+      peerConnection.addStream(stream);
+  
+      peerConnection.createOffer().then((description) => {
+        peerConnection.setLocalDescription(description);
+  
+        // send the offer to a server to be forwarded to the other peer
+      });
+  
+      peerConnection.ontrack = (event) => {
+        setRemoteStream(event.streams[0]);
+      };
+    } catch (error) {
+      console.error("Error getting user media:", error);
+      alert("Error getting user media: " + error.message);
+    }
 
     peerConnection.ontrack = (event) => {
       setRemoteStream(event.streams[0]);
