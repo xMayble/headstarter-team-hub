@@ -1,3 +1,38 @@
+* {
+  /* text-align: center; */
+  /* min-height: 100vh; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  box-sizing: border-box;
+  /* background-image: linear-gradient(79deg, #fcfced, #fcedfc 48%, #ebf6ff); */
+}
+
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+}
+
+input {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button {
+  background-color: white;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+body {
+  color: #383f4d;
+  line-height: 1.5;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+    sans-serif;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
