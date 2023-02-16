@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./VideoCall.css"; // Import CSS file for styling
 
 const VideoCall = () => {
   const [localStream, setLocalStream] = useState(null);
@@ -32,6 +33,13 @@ const VideoCall = () => {
       setRemoteStream(event.streams[0]);
     };
   };
+  
+  useEffect(() => {
+    if (localStream && peerConnection) {
+      peerConnection.addStream(localStream);
+    }
+  }, [localStream, peerConnection]);
+
 
   const endCall = () => {
     peerConnection.close();
@@ -40,10 +48,15 @@ const VideoCall = () => {
 
   return (
     <div className="video-call">
-      <video src={remoteStream ? URL.createObjectURL(remoteStream) : ""} />
-      <video src={localStream ? URL.createObjectURL(localStream) : ""} />
-      <button onClick={startCall}>Start Call</button>
-      <button onClick={endCall}>End Call</button>
+      <h1>Video Call</h1>
+      <div className="video-container">
+        <video src={remoteStream ? URL.createObjectURL(remoteStream) : ""} />
+        <video src={localStream ? URL.createObjectURL(localStream) : ""} />
+      </div>
+      <div className="button-container">
+        <button className="start-call" onClick={startCall}>Start Call</button>
+        <button className="end-call" onClick={endCall}>End Call</button>
+      </div>
     </div>
   );
 };
