@@ -33,6 +33,13 @@ const VideoCall = () => {
       setRemoteStream(event.streams[0]);
     };
   };
+  
+  useEffect(() => {
+    if (localStream && peerConnection) {
+      peerConnection.addStream(localStream);
+    }
+  }, [localStream, peerConnection]);
+
 
   const endCall = () => {
     peerConnection.close();
