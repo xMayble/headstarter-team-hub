@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
+
 
 // Define a functional component for the form
-const Form = () => {
+const Form = (props) => {
     // using the useState hook to manage the state of the form
     // Initialize the state for the start time with an empty string
-    const [startTime, setStartTime] = useState('');
+    const [start, setStart] = useState('');
     // Initialize the state for the end time with an empty string
-    const [endTime, setEndTime] = useState('');
+    const [end, setEnd] = useState('');
     // Initialize the state for the date with an empty string
     const [date, setDate] = useState('');
 
@@ -15,33 +18,42 @@ const Form = () => {
         // Prevent the default form submit behavior
         event.preventDefault();
         // logic to add the event to the calendar goes here
+
+        // create a new event object with the information from the form
+        const newEvent = {
+            title:  `Event from ${start.format('h:mm a')} to ${end.format('h:mm a')}`,
+            start: start.toDate(),
+            end: end.toDate()
+        };
+
+        // Pass the new event to the addEvent function, which is a prop passed in from the parent component
+        props.addEvent(newEvent);
+
+        // Reset the form values
+        setStart('');
+        setEnd('');
+        setDate('');
     };
 
     return (
         // Render the form with the onSubmit event handler
         <form onSubmit={handleSubmit}>
-            {/* Render a label and input for the start time */}
+         
             <label>
                 Start Time:
-                <input type="text" value={startTime} onChange={(event) => setStartTime(event.target.value)} />
+                <Datetime value={start} onChange={setStart} dateFormat="YYYY-MM-DD" timeFormat="HH:mm" />
             </label>
-            {/* Add a line break */}
             <br />
-            {/* Render a label and input for the end time */}
             <label>
                 End Time:
-                <input type="text" value={endTime} onChange={(event) => setEndTime(event.target.value)} />
+                <Datetime value={end} onChange={setEnd} dateFormat="YYYY-MM-DD" timeFormat="HH:mm" />
             </label>
-            {/* Add a line break */}
             <br />
-            {/* Render a label and input for the date */}
             <label>
                 Date:
                 <input type="date" value={date} onChange={(event) => setDate(event.target.value)} />
             </label>
-            {/* Add a line break */}
             <br />
-            {/* Render a submit button */}
             <button type="submit">Add Event</button>
         </form>
     );
