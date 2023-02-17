@@ -6,17 +6,7 @@ const Calendar = () => {
     // using the useState hook in React to manage the state of the 'Calendar'..
     // ..component, returns an array with two elements: the current state value, and 
     // a function to update the state value
-    const [events, setEvents] = useState([
-        // an array of objects that represents the initial state of 
-        // the events in the Calendar component.
-        // Each object in the array has two properties: title and date. 
-        // The title property is a string that represents the title of an event, 
-        // and the date property is a string that represents the date of the event in 
-        // the format YYYY-MM-DD.
-        { title: 'Event 1', date: '2023-02-01' },
-        { title: 'Event 2', date: '2023-02-02' },
-        { title: 'Event 3', date: '2023-02-03' },
-    ]);
+    const [events, setEvents] = useState([]);
 
     return (
         // a third-party component that provides a customizable and user-friendly calendar display, 
